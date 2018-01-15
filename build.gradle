@@ -1,0 +1,68 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.0.M7'
+        protobufVersion = '3.4.0'
+        protobufPluginVersion = '0.8.3'
+        kafkaVersion = '2.1.0.RELEASE'
+    }
+    repositories {
+        mavenLocal()
+        maven { url "http://nexus.pagseguro.intranet/repository/public" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "com.google.protobuf:protobuf-gradle-plugin:${protobufPluginVersion}"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: "idea"
+apply plugin: 'org.springframework.boot'
+apply plugin: "io.spring.dependency-management"
+apply plugin: "com.google.protobuf"
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:${protobufVersion}"
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs (["/src/main/java", "build/generated/source/proto/main/java"])
+        }
+    }
+}
+
+sourceCompatibility = 1.8
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+repositories {
+    mavenLocal()
+    maven { url "http://nexus.pagseguro.intranet/repository/public" }
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile('org.springframework.boot:spring-boot-starter-webflux'){
+        exclude group: 'io.netty', module: 'netty-transport-native-epoll'
+    }
+    compile group: "uol.pagseguro", name: "aspect-log-interceptor", version: "1.0"
+    compile "org.projectlombok:lombok:1.16.18"
+
+    compile "org.springframework.kafka:spring-kafka:${kafkaVersion}"
+
+    compile "com.google.protobuf:protobuf-java:${protobufVersion}"
+    compile "com.google.protobuf:protobuf-java-util:${protobufVersion}"
+
+    testCompile "org.assertj:assertj-core:3.8.0"
+    testCompile "org.assertj:assertj-core-java8:1.0.0m1"
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    testCompile "org.springframework.kafka:spring-kafka-test:${kafkaVersion}"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile "org.cassandraunit:cassandra-unit-spring:3.3.0.2"
+}

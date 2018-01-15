@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+ option java_package = "br.com.dhakamada.kafka.events";
+ option java_multiple_files = true;
+
+ message OperationProto {
+     string name = 1;
+     string data = 2;
+ }
