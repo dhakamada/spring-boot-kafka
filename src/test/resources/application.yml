@@ -3,6 +3,6 @@ logging:
     root: INFO
 
 kafka:
-  bootstrap-servers: ${spring.embedded.kafka.brokers}
+  bootstrap-servers: localhost:9092
 topic:
   receiver: receiver.t
