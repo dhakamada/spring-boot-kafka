@@ -54,8 +54,8 @@ public class KafkaConsumerWrapperConfig {
     }
 
     @Bean
-    public Listener listener() {
-        return new Listener();
+    public Listener1 listener() {
+        return new Listener1();
     }
 
 }

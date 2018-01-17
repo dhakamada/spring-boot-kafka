@@ -22,7 +22,7 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SpringKafkaMultipleConsumptionTests {
+public class SpringKafkaMultipleConsumerTests {
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
