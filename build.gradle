@@ -7,7 +7,6 @@ buildscript {
     }
     repositories {
         mavenLocal()
-        maven { url "http://nexus.pagseguro.intranet/repository/public" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
